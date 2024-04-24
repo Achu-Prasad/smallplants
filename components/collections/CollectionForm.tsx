@@ -44,13 +44,17 @@ const CollectionForm = () => {
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
+    
+    const empty = "";
+    if(values.image===empty){
+      toast.error("upload image")
+    };
     try{
       setLoading(true)
       const res = await fetch("/api/collections", {
         method: "POST",
         body: JSON.stringify(values),
       });
-      console.log(res)
 
       if(res.ok){
         setLoading(false);
