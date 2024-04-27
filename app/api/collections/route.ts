@@ -8,7 +8,6 @@ import Collection from "@/lib/models/Collection";
 export const POST = async (req: NextRequest) => {
   try {
     const { userId } = auth();
-    console.log(userId)
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 403 })

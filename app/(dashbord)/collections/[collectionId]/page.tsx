@@ -21,7 +21,7 @@ const CollectionDetails = ({ params }: { params: { collectionId: string }}) => {
       console.log("[collectionIdPage_GET]", err)
     }
   }
-  console.log(collectionDetails)
+  // console.log(collectionDetails)
 
   useEffect(() => {
     getCollectionDetails()
