@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
 import { X } from "lucide-react";
 
 interface MultiTextProps {
@@ -21,8 +20,8 @@ const MultiText: React.FC<MultiTextProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState("");
 
-  const addTag = (tag: string) => {
-    onChange(tag);
+  const addTag = (item: string) => {
+    onChange(item);
     setInputValue("");
   };
 
@@ -41,11 +40,14 @@ const MultiText: React.FC<MultiTextProps> = ({
       />
       <div className="flex gap-1 flex-warp mt-4">
         {value.map((tag, index) => (
-          <Badge key={index} className="bg-grey-1 text-white">
-            {tag}
-            <Button className="ml-1 rounded-full outline-none hover:bg-red-1" size= "sm" onClick={()=>onRemove(tag)}>
-              <X className="h-3 w-3"/>
-            </Button>
+          <Badge key={index} className="bg-green-600 text-white">
+            {tag}{" "}
+            <div
+              className="ml-1 rounded-full outline-none hover:bg-black-2"
+              onClick={() => onRemove(tag)}
+            >
+              <X className="h-3 w-3" />
+            </div>
           </Badge>
         ))}
       </div>
