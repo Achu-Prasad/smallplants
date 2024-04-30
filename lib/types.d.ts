@@ -1,3 +1,6 @@
+
+import { Decimal128 } from 'mongodb';
+
 type CollectionType = {
     _id:string,
     title:string,
@@ -15,10 +18,8 @@ type ProductType = {
     tags:[string],
     sizes:[string],
     colors:[string],
-    prize:number,
-    expense:number,
+    price:Decimal128,
+    expense:Decimal128,
     createdAt:Date,
     updatedAt:Date,
-
-
 }

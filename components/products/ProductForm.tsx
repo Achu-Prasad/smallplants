@@ -24,6 +24,7 @@ import Delete from "../custom ui/Delete";
 import MultiText from "../custom ui/MultiText";
 import MultiSelect from "../custom ui/MultiSelect";
 import { NextResponse } from "next/server";
+import { CollectionType, ProductType } from "@/lib/types";
 
 const formSchema = z.object({
   title: z.string().min(2).max(20),
@@ -81,7 +82,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           tags:[],
           sizes:[],
           colors:[],
-          prize:0.1,
+          price:0.1,
           expense:0.1,
         },
   });
@@ -136,7 +137,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 <FormControl>
                   <Input placeholder="Title" {...field} onKeyDown={handleKeyPress} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-1" />
               </FormItem>
             )}
           />
@@ -149,7 +150,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 <FormControl>
                   <Textarea placeholder="Description" {...field} rows={5} onKeyDown={handleKeyPress} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-1" />
               </FormItem>
             )}
           />
@@ -166,7 +167,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     onRemove={(url) => field.onChange([...field.value.filter((image) => image !== url)])}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-1" />
               </FormItem>
             )}
           />
@@ -178,9 +179,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               <FormItem>
                 <FormLabel>Price($)</FormLabel>
                 <FormControl>
-                  <Input type = "number" placeholder="Price" {...field} onKeyDown={handleKeyPress} />
+                  <Input type = "number" placeholder="price" {...field} onKeyDown={handleKeyPress} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-1"/>
               </FormItem>
             )}
           />
@@ -193,7 +194,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 <FormControl>
                   <Input type = "number" placeholder="Expense" {...field} onKeyDown={handleKeyPress} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-1" />
               </FormItem>
             )}
           />
@@ -206,7 +207,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 <FormControl>
                   <Input placeholder="Category" {...field} onKeyDown={handleKeyPress} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-1"/>
               </FormItem>
             )}
           />
@@ -222,7 +223,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                   onRemove={(tagToRemove) => field.onChange([...field.value.filter((tag) => tag !== tagToRemove)])}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-1"/>
               </FormItem>
             )}
           />
@@ -238,10 +239,43 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                   onRemove={(_idtoRemove) => field.onChange([...field.value.filter((collectionId) => collectionId !== _idtoRemove)])}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-1"/>
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="colors"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Colors</FormLabel>
+                <FormControl>
+                  <MultiText placeholder = "colors" value = {field.value} onChange = { (colortag) => field.onChange([...field.value,colortag])
+                  }
+                  onRemove={(colorTagToRemove) => field.onChange([...field.value.filter((colortag) => colortag !== colorTagToRemove)])}
+                  />
+                </FormControl>
+                <FormMessage className="text-red-1"/>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="sizes"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Sizes</FormLabel>
+                <FormControl>
+                  <MultiText placeholder = "sizes" value = {field.value} onChange = { (size) => field.onChange([...field.value,size])
+                  }
+                  onRemove={(sizeToRemove) => field.onChange([...field.value.filter((size) => size !== sizeToRemove)])}
+                  />
+                </FormControl>
+                <FormMessage className="text-red-1" />
+              </FormItem>
+            )}
+          />
+          
           </div>
           <div className="flex gap-10">
             <Button type="submit" className="bg-green-700 text-white">
@@ -249,7 +283,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
             </Button>
             <Button
               type="button"
-              onClick={() => router.push("/collections")}
+              onClick={() => router.push("/products")}
               className="bg-green-700 text-white"
             >
               Discard
