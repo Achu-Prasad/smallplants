@@ -43,10 +43,17 @@ export const POST = async (req: NextRequest) => {
     });
     // console.log(newProduct)
     await newProduct.save();
-
     return NextResponse.json(newProduct, { status: 200 });
+    
   } catch (err) {
     console.log("[ProductsmainRoute_POST]", err);
     return new NextResponse("internal Error", { status: 500 });
   }
 };
+
+
+
+
+
+
+export const dynamic = "force-dynamic";
