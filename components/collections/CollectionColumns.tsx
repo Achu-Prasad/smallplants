@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Delete from "../custom ui/Delete";
 import Link from "next/link";
+import { CollectionType } from "@/lib/types";
 
 export const columns: ColumnDef<CollectionType>[] = [
   {
