@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Delete from "../custom ui/Delete";
 import Link from "next/link";
-import { CollectionType, ProductType } from "@/lib/types";
+import { ProductType } from "@/lib/types";
 
 export const columns: ColumnDef<ProductType>[] = [
   {
@@ -12,7 +12,7 @@ export const columns: ColumnDef<ProductType>[] = [
     cell: ({ row }) => (
       <Link
         href={`/products/${row.original._id}`}
-        className="hover:text-green-800"
+        className="hover:text-red-1"
       >
         {row.original.title}
       </Link>
@@ -25,20 +25,18 @@ export const columns: ColumnDef<ProductType>[] = [
   {
     accessorKey: "collections",
     header: "Collections",
-    cell: ({row}) => row.original.collections.map((collection) => collection.title).join(", ")
+    cell: ({ row }) => row.original.collections.map((collection) => collection.title).join(", "),
   },
   {
     accessorKey: "price",
-    header: "Price",
+    header: "Price ($)",
   },
   {
     accessorKey: "expense",
-    header: "Expense",
+    header: "Expense ($)",
   },
-
-  
   {
     id: "actions",
-    cell: ({ row }) => <Delete item="products" id={row.original._id} />,
+    cell: ({ row }) => <Delete item="product" id={row.original._id} />,
   },
 ];

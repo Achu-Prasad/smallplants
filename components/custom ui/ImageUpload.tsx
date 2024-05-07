@@ -30,14 +30,14 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
             </div>
             <Image
               src={url}
-              alt="Collections"
+              alt="images"
               className="object-cover rounded-lg"
               fill
             />
           </div>
         ))}
       </div>
-      <CldUploadWidget uploadPreset="smallplants" onUpload={onUpload}>
+      
         {({ open }) => {
           return (
             <Button onClick={() => open()} className="bg-grey-1 text-white">

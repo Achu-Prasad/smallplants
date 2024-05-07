@@ -18,8 +18,8 @@ type ProductType = {
     tags:[string],
     sizes:[string],
     colors:[string],
-    price:Decimal128,
-    expense:Decimal128,
+    price:number,
+    expense:number,
     createdAt:Date,
     updatedAt:Date,
 }

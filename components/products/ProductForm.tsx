@@ -25,6 +25,7 @@ import MultiText from "../custom ui/MultiText";
 import MultiSelect from "../custom ui/MultiSelect";
 import { NextResponse } from "next/server";
 import { CollectionType, ProductType } from "@/lib/types";
+import Loader from "../custom ui/Loader";
 
 const formSchema = z.object({
   title: z.string().min(2).max(20),
@@ -46,12 +47,11 @@ interface ProductFormProps {
 const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
   const router = useRouter();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [collections, setCollections] = useState<CollectionType[]>([]);
 
   const getCollections = async () => {
     try {
-      setLoading(true);
       const res = await fetch("/api/collections", {
         method: "GET",
       });
@@ -71,7 +71,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData
-      ? initialData
+      ? {...initialData, collections: initialData.collections.map((collection) => collection._id)}
       : {
           title: "",
           description: "",
@@ -118,7 +118,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
     }
   };
 
-  return (
+  return loading ? <Loader/> : (
     <div className="p-10">
       {initialData ? (
         <div className="flex items-center justify-between">
@@ -264,7 +264,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 </FormItem>
               )}
             />
-            <FormField
+            {collections.length > 0 && (
+              <FormField
               control={form.control}
               name="collections"
               render={({ field }) => (
@@ -289,6 +290,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 </FormItem>
               )}
             />
+            )}
             <FormField
               control={form.control}
               name="colors"
